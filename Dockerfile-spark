@@ -6,12 +6,16 @@ FROM ubuntu:xenial
 
 COPY ./common/sources.list /etc/apt/sources.list
 
-RUN apt-get update --fix-missing  -y && apt-get update -y
-
-# 环境安装
-WORKDIR /opt 
-RUN apt-get install -y openjdk-8-jdk apt-transport-https wget python3 python3-pip \
+# 库安装
+RUN apt-get update --fix-missing  -y \
+	&& apt-get update -y \
+	&& apt-get install -y openjdk-8-jdk apt-transport-https wget python3 python3-pip \
 	&& ln -s /usr/bin/python3 /usr/bin/python
+
+# 包安装
+WORKDIR /opt
+ADD ./pkg/spark-2.4.3-bin-hadoop2.7.tgz .
 
 # ENV
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+
