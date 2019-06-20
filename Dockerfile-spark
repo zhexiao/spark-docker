@@ -2,6 +2,9 @@
 # docker build -t spark -f Dockerfile-spark .
 #
 
+MAINTAINER Zhe Xiao <37644681@qq.com>
+MAINTAINER Zhou Pengfei <342058040@qq.com>
+
 FROM ubuntu:xenial
 
 COPY ./common/sources.list /etc/apt/sources.list
