@@ -5,11 +5,19 @@
 FROM ubuntu:xenial
 
 COPY ./common/sources.list /etc/apt/sources.list
-RUN apt-get update --fix-missing  -y && apt-get update -y
 
+RUN apt-get update --fix-missing  -y \
+	&& apt-get update -y
 
-# JAVA环境
-RUN apt-get install -y openjdk-8-jdk apt-transport-https
+ENV SPARK_VERSION=2.4.3
+ENV HADOOP_VERSION=2.7
 
+# 环境安装
+WORKDIR /opt 
+RUN apt-get install -y openjdk-8-jdk apt-transport-https wget \
+	&& wget http://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+	&& tar -zxvf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz \
+	&& rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
+	
 # ENV
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
