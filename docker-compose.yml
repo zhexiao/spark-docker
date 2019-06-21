@@ -21,7 +21,7 @@ services:
     container_name: spark-master
     ports:
       - "81:8080"
-      - "82:7077"
+      - "7077:7077"
     deploy: *default-deploy
     logging: *default-logging
 
