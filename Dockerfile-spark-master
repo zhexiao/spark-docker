@@ -1,0 +1,33 @@
+#
+# docker build -t spark -f Dockerfile-spark .
+#
+FROM ubuntu:xenial
+
+COPY ./common/sources.list /etc/apt/sources.list
+
+# 库安装
+RUN apt-get update --fix-missing  -y \
+	&& apt-get update -y \
+	&& apt-get install -y openjdk-8-jdk apt-transport-https wget python3 python3-pip \
+	&& ln -s /usr/bin/python3 /usr/bin/python
+
+# ENV
+ENV SPARK_VERSION=spark-2.4.3-bin-hadoop2.7
+ENV SPARK_MASTER_PORT=7077
+ENV SPARK_MASTER_WEBUI_PORT=8080
+ENV SPARK_MASTER_HOST=0.0.0.0
+ENV SPARK_DRIVER_MEMORY=4g
+ENV SPARK_WORKER_CORES=2
+ENV SPARK_WORKER_MEMORY=2g
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# 包安装
+WORKDIR /spark
+ADD ./pkg/$SPARK_VERSION.tgz .
+
+# 启动
+CMD /spark/$SPARK_VERSION/bin/spark-class \
+	org.apache.spark.deploy.master.Master \
+	--ip $SPARK_MASTER_HOST \ 
+	--port $SPARK_MASTER_PORT \
+	--webui-port $SPARK_MASTER_WEBUI_PORT
