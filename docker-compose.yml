@@ -17,29 +17,19 @@ x-deploy:
 
 services:
   spark-master:
-    image: spark:latest
+    image: spark-master:latest
     container_name: spark-master
     ports:
-      - "81:8080"
+      - "8001:8001"
       - "7077:7077"
     deploy: *default-deploy
     logging: *default-logging
 
-  spark-worker1:
-    image: worker:latest
-    container_name: spark-worker1
+  spark-worker:
+    image: spark-worker:latest
+    container_name: spark-worker
     ports:
-      - "91:8080"
-    deploy: *default-deploy
-    logging: *default-logging
-    depends_on:
-      - spark-master
-
-  spark-worker2:
-    image: worker:latest
-    container_name: spark-worker2
-    ports:
-      - "92:8080"
+      - "8002:8002"
     deploy: *default-deploy
     logging: *default-logging
     depends_on:
