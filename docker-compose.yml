@@ -20,16 +20,26 @@ services:
     image: spark-master:latest
     container_name: spark-master
     ports:
-      - "8001:8001"
+      - "8001:8080"
       - "7077:7077"
     deploy: *default-deploy
     logging: *default-logging
 
-  spark-worker:
+  spark-worker1:
     image: spark-worker:latest
-    container_name: spark-worker
+    container_name: spark-worker1
     ports:
-      - "8002:8002"
+      - "8002:8080"
+    deploy: *default-deploy
+    logging: *default-logging
+    depends_on:
+      - spark-master
+
+  spark-worker2:
+    image: spark-worker:latest
+    container_name: spark-worker2
+    ports:
+      - "8003:8080"
     deploy: *default-deploy
     logging: *default-logging
     depends_on:
