@@ -1,7 +1,19 @@
 # spark-docker
 以docker的方式安装spark集群
 
-# 安装镜像
+# 使用
+下载spark和hadoop包并放入pkg目录
+```
+hadoop-3.1.2.tar.gz  
+spark-2.4.3-bin-hadoop2.7.tgz
+```
+
+注意上面的包名对应3个Dockerfile里面的ENV，如果版本有变化，需要对应修改
+```
+ENV SPARK_VERSION=spark-2.4.3-bin-hadoop2.7
+ENV HADOOP_VERSION=hadoop-3.1.2
+```
+
 安装base
 ```
 $ docker build -t spark-base -f Dockerfile-spark-base .
@@ -11,4 +23,9 @@ $ docker build -t spark-base -f Dockerfile-spark-base .
 ```
 $ docker build -t spark-master -f Dockerfile-spark-master .
 $ docker build -t spark-worker -f Dockerfile-spark-worker .
+```
+
+启动
+```
+$ docker-compose up
 ```
