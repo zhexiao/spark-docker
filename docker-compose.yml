@@ -44,3 +44,23 @@ services:
     logging: *default-logging
     depends_on:
       - spark-master
+
+  spark-worker3:
+    image: spark-worker:latest
+    container_name: spark-worker3
+    ports:
+      - "8004:8080"
+    deploy: *default-deploy
+    logging: *default-logging
+    depends_on:
+      - spark-master
+
+  spark-worker4:
+    image: spark-worker:latest
+    container_name: spark-worker4
+    ports:
+      - "8005:8080"
+    deploy: *default-deploy
+    logging: *default-logging
+    depends_on:
+      - spark-master
