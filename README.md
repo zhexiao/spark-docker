@@ -29,3 +29,12 @@ $ docker build -t spark-worker -f Dockerfile-spark-worker .
 ```
 $ docker-compose up
 ```
+
+# 访问测试
+集群地址：
+请求地址根据docker-compose.yml的配置，默认为 http://IP:8001 .
+
+测试脚本：
+```
+$ python3 example/test1.py
+```
