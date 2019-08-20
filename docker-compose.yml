@@ -8,13 +8,6 @@ x-logging:
     max-size: '12m'
     max-file: '5'
 
-x-deploy:
-  &default-deploy
-  restart_policy:
-    condition: any
-    delay: 10s
-  replicas: 1
-
 services:
   spark-master:
     image: spark-master:latest
@@ -22,7 +15,7 @@ services:
     ports:
       - "8001:8080"
       - "7077:7077"
-    deploy: *default-deploy
+    restart: always
     logging: *default-logging
 
   spark-worker1:
@@ -30,7 +23,7 @@ services:
     container_name: spark-worker1
     ports:
       - "8002:8080"
-    deploy: *default-deploy
+    restart: always
     logging: *default-logging
     depends_on:
       - spark-master
@@ -40,7 +33,7 @@ services:
     container_name: spark-worker2
     ports:
       - "8003:8080"
-    deploy: *default-deploy
+    restart: always
     logging: *default-logging
     depends_on:
       - spark-master
