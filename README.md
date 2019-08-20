@@ -27,7 +27,7 @@ $ docker build -t spark-worker -f Dockerfile-spark-worker .
 
 启动
 ```
-$ docker-compose up
+$ docker-compose -f docker-compose.yml up -d
 ```
 
 # 访问测试

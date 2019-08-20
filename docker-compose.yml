@@ -17,6 +17,8 @@ services:
       - "7077:7077"
     restart: always
     logging: *default-logging
+    networks:
+      - "mynet1"
 
   spark-worker1:
     image: spark-worker:latest
@@ -27,6 +29,8 @@ services:
     logging: *default-logging
     depends_on:
       - spark-master
+    networks:
+      - "mynet1"
 
   spark-worker2:
     image: spark-worker:latest
@@ -37,3 +41,9 @@ services:
     logging: *default-logging
     depends_on:
       - spark-master
+    networks:
+      - "mynet1"
+
+networks:
+  mynet1:
+    driver: bridge
